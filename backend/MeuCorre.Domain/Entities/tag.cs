@@ -16,6 +16,7 @@ namespace MeuCorre.Domain.Entities
 
         public tag(Guid usuarioId, string nome, string cor)
         {
+            ValidarEntidadeTag(cor);
             UsuarioId = usuarioId;
             Nome = nome.ToLower();
             Cor = cor;
@@ -29,7 +30,7 @@ namespace MeuCorre.Domain.Entities
             {
                 return; //retorna caso a cor seja nula ou vazia
             }
-
+            
             //#FF02AB
             var corRegex = new Regex(@"^#?([0-9a-fA-F]{3}){1,2}$");
 
