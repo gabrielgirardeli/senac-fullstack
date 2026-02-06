@@ -13,7 +13,7 @@ namespace MeuCorre.Application.UseCases.tags.Commands
     {
         [Required(ErrorMessage = "É necessário informar o ID da categoria")]
         public required Guid TagId { get; set; }
-        public required Guid UsuarioId { get; set; }
+       
     }
     internal class InativarCategoriaCommandHandler : IRequestHandler<InativarCategoriaCommand, (string, bool)>
     {

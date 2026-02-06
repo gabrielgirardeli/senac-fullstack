@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace MeuCorre.Domain.Entities
 {
-      public class tag :Entidade
+      public class Tag :Entidade
     { 
         public Guid UsuarioId { get;private set; }
         public string Nome { get; private set; }
         public string Cor { get;private set; }
+        public virtual Usuario Usuario { get; private set; }
 
 
-        public tag(Guid usuarioId, string nome, string cor)
+
+
+        public Tag(Guid usuarioId, string nome, string cor)
         {
             ValidarEntidadeTag(cor);
             UsuarioId = usuarioId;
