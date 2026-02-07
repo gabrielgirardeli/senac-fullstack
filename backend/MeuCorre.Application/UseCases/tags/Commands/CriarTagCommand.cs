@@ -32,9 +32,27 @@ namespace MeuCorre.Application.UseCases.tags.Commands
 
     internal class CriarTagCommandHandler : IRequestHandler<CriarTagCommand, (string, bool)>
     {
-        public Task<(string, bool)> Handle(CriarTagCommand request, CancellationToken cancellationToken)
+         private readonly ITagRepository _tagRepository;
+        public CriarTagCommandHandler(ITagRepository tagRepository)
         {
-            throw new NotImplementedException();
+            _tagRepository = tagRepository;
+        }
+        public async Task<(string, bool)> Handle(CriarTagCommand request, CancellationToken cancellationToken)
+        {
+            var existe = await _tagRepository.NomeExisteParaUsuarioAsync(request.Nome, request.UsuarioId);
+            if (existe)
+            {
+                return ("Já existe uma tag com esse nome para este usuário", false);
+            }
+
+            var tag = new Tag(
+                    request.UsuarioId,
+                    request.Nome,
+                    request.Cor
+                );
+
+            await _tagRepository.AdicionarAsync(tag);
+            return ("Tag cadastrada com sucesso", true);
         }
     }
 }
